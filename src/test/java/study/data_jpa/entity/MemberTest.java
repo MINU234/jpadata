@@ -13,6 +13,7 @@ import java.util.List;
 public class MemberTest {
     @PersistenceContext
     EntityManager em;
+
     @Test
     @Transactional
     @Rollback(false)
