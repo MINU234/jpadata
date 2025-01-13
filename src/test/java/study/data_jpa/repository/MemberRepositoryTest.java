@@ -2,13 +2,11 @@ package study.data_jpa.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 import study.data_jpa.entity.Member;
@@ -24,7 +22,6 @@ public class MemberRepositoryTest {
     MemberRepository memberRepository;
     @Autowired
     private TeamRepository teamRepository;
-
     @PersistenceContext
     EntityManager em;
 
@@ -48,9 +45,14 @@ public class MemberRepositoryTest {
 
         //then
         List<Member> content = page.getContent();
+
         for (Member member : content) {
             System.out.println("member = "+member);
         }
+    }
+    @Test
+    public void callCustom(){
+        List<Member> result = memberRepository.findMemberCustom();
     }
 
     @Test

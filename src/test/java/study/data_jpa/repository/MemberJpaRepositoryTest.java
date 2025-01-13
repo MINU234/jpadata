@@ -6,16 +6,15 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.data_jpa.entity.Member;
-import study.data_jpa.entity.Team;
 
 import java.util.List;
 
 @SpringBootTest
 @Transactional
 public class MemberJpaRepositoryTest {
+
     @Autowired
     MemberRepository memberRepository;
     @Autowired
@@ -55,5 +54,19 @@ public class MemberJpaRepositoryTest {
         em.clear();
         //then
         Assertions.assertThat(resultcount).isEqualTo(3);
+    }
+
+    @Test
+    public void queryHint(){
+        //given
+        Member member1 = memberRepository.save(new Member("member1", 10));
+        em.flush();
+        em.clear();
+
+        //when
+        Member findMember = memberRepository.findReadOnlyByUsername("member1");
+        findMember.setUsername("member2");
+
+        em.flush();
     }
 }

@@ -7,7 +7,7 @@ import lombok.*;
 @Getter@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id","username","age"}) //team을 안적는 이유 team과 Member는 연관관계이기 때문에 서로 참조를 하다보면 무한루프가 될 수있다.
-public class Member {
+public class Member extends JPABaseEntity{
 
     @Id @GeneratedValue
     @Column(name="member_id")
